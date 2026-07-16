@@ -194,8 +194,9 @@ was implemented — `TabManager.showSoftKeyboard(tabId)` (requestFocus +
 native-bridge `showSoftKeyboard()`, called by keyboard-bridge once focus
 stuck — both native paths individually verified (mInputShown=true), but
 in real play the user found it glitchy and preferred the second tap, so
-the keyboard-bridge call was removed same day. All the native + façade
-plumbing REMAINS (dormant, documented in-code) if an opt-in is ever wanted.
+the keyboard-bridge call was removed same day. The dormant native + façade
+plumbing was deleted in the 2026-07-15 release dead-code sweep — resurrect
+from git history if an opt-in is ever wanted.
 ⚠ Test-tooling gotchas on this device: (1) `adb shell input tap/swipe`
 arrives with **pointerType '' (empty)** on Android 11 → bypasses the touch
 translator's `pointerType !== 'touch'` gate entirely (raw tap still walks

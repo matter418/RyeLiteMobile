@@ -111,19 +111,6 @@ public class BackgroundModePlugin extends Plugin {
         call.resolve();
     }
 
-    // Tab 1's route for the keyboard-bridge IME nudge (secondary tabs use
-    // RLMBridge.showKeyboard) — see TabManager.showSoftKeyboard.
-    @PluginMethod
-    public void showKeyboard(PluginCall call) {
-        if (getActivity() instanceof MainActivity) {
-            TabManager tm = ((MainActivity) getActivity()).getTabManager();
-            if (tm != null) {
-                tm.showSoftKeyboard(0);
-            }
-        }
-        call.resolve();
-    }
-
     // Tab 1's route for aligning the native tab bar with the game window
     // (secondary tabs use RLMBridge.setTabBarInset).
     @PluginMethod

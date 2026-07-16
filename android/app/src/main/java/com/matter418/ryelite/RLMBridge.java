@@ -191,14 +191,6 @@ class RLMBridge {
     }
 
     @JavascriptInterface
-    public void showKeyboard() {
-        TabManager tm = activity.getTabManager();
-        if (tm != null) {
-            tm.showSoftKeyboard(tabId); // hops to the UI thread itself
-        }
-    }
-
-    @JavascriptInterface
     public void setBackgroundEnabled(boolean enabled) {
         BackgroundModePlugin.writeEnabled(activity, enabled);
     }

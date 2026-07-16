@@ -20,7 +20,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
@@ -281,29 +280,6 @@ class TabManager {
             if (barLayoutParams != null) {
                 barLayoutParams.leftMargin = Math.max(dp(6), edgeInsetPx);
                 bar.setLayoutParams(barLayoutParams);
-            }
-        });
-    }
-
-    /**
-     * Show the soft keyboard targeting a tab's WebView. Android 11 only shows
-     * the IME for a tap landing directly on an editable — a programmatic
-     * focus() shortly after the tap is ignored (newer Android accepts it), so
-     * keyboard-bridge asks natively once its shadow input holds focus.
-     */
-    void showSoftKeyboard(int tabId) {
-        activity.runOnUiThread(() -> {
-            if (destroyed) return;
-            for (Tab t : tabs) {
-                if (t.id == tabId) {
-                    t.view.requestFocus();
-                    InputMethodManager imm = (InputMethodManager)
-                            activity.getSystemService(Context.INPUT_METHOD_SERVICE);
-                    if (imm != null) {
-                        imm.showSoftInput(t.view, 0);
-                    }
-                    return;
-                }
             }
         });
     }

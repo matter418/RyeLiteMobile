@@ -42,7 +42,6 @@ interface RLMTabBridge {
     setTabBarInset(px: number): void;
     setTabBarHidden(hidden: boolean): void;
     setIdleBlink(on: boolean): void;
-    showKeyboard(): void;
 }
 
 declare global {
@@ -52,8 +51,6 @@ declare global {
 }
 
 const bridge = window.RLMBridge;
-
-export const isSecondaryTab = !!bridge;
 
 // Same spoof set the desktop client and tab 1 have always sent.
 const SPOOF_HEADERS: Record<string, string> = {
@@ -178,7 +175,6 @@ export interface BackgroundModeApi {
     setTabBarInset(options: { px: number }): Promise<void>;
     setTabBarHidden(options: { hidden: boolean }): Promise<void>;
     setIdleBlink(options: { on: boolean }): Promise<void>;
-    showKeyboard(): Promise<void>;
 }
 
 export const backgroundMode: BackgroundModeApi = bridge
@@ -201,9 +197,6 @@ export const backgroundMode: BackgroundModeApi = bridge
           async setIdleBlink({ on }) {
               bridge.setIdleBlink(on);
           },
-          async showKeyboard() {
-              bridge.showKeyboard();
-          },
       }
     : registerPlugin<BackgroundModeApi>('BackgroundMode');
 
@@ -221,17 +214,6 @@ export function setIdleBlink(on: boolean): void {
 // reloads or dies mid-hide can never strand the bar off-screen.
 export function setTabBarHidden(hidden: boolean): void {
     backgroundMode.setTabBarHidden({ hidden }).catch(() => {});
-}
-
-// Ask Android to show the soft keyboard for this tab's WebView. Android 11
-// only shows the IME for a tap that lands directly on an editable — a
-// programmatic focus() shortly after the tap is silently ignored (newer
-// Android accepts it; found on the Lenovo TB-X306F). CURRENTLY UNUSED:
-// keyboard-bridge auto-nudged the IME through this once its shadow input
-// held focus, but that was reverted (glitchy in practice; the second tap
-// on the input line is the accepted UX). Kept for a possible opt-in.
-export function showSoftKeyboard(): void {
-    backgroundMode.showKeyboard().catch(() => {});
 }
 
 // Tell the native tab bar how far the page content is inset from the screen

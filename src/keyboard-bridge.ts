@@ -111,11 +111,10 @@ export function initKeyboardBridge(): void {
         //
         // Android 11 (Lenovo tablet) never shows the IME for a programmatic
         // focus — only for a tap directly on an editable, so there the
-        // keyboard takes a second tap (on the input line). Auto-nudging it
-        // via native showSoftInput (native-bridge showSoftKeyboard) was
-        // tried 2026-07-15 and REVERTED: glitchy in practice, and the user
-        // prefers the reliable second tap. The native plumbing remains for
-        // a possible future opt-in.
+        // keyboard takes a second tap (on the input line). A native
+        // showSoftInput auto-nudge was tried and reverted (glitchy in
+        // practice; the second tap is reliable) — see git history if an
+        // opt-in is ever wanted.
         let tries = 0;
         const refocus = () => {
             if (shadow !== inp || !inp.isConnected) return;
