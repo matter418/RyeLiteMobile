@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFE768"/>
+      <stop offset="1" stop-color="#F2CC2E"/>
+    </linearGradient>
+    <linearGradient id="cream" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFDE8"/>
+      <stop offset="1" stop-color="#EDEDDA"/>
+    </linearGradient>
+    <linearGradient id="markerBody" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFE768"/>
+      <stop offset="1" stop-color="#F2CC2E"/>
+    </linearGradient>
+    <filter id="soft" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="18" dy="22" stdDeviation="18" flood-color="#000000" flood-opacity="0.55"/>
+    </filter>
+  </defs>
+
+  <!-- background -->
+  <rect width="1024" height="1024" fill="#1D1D1D"/>
+  <rect width="1024" height="1024" fill="url(#vignette)"/>
+
+  <!-- R : beveled gold, extruded -->
+  <g filter="url(#soft)" font-family="'Arial Black','Arial',sans-serif" font-weight="900" font-size="470">
+    <text x="150" y="700" fill="#8F6E0E">R</text>
+    <text x="146" y="696" fill="#A5810F">R</text>
+    <text x="142" y="692" fill="#BC9413">R</text>
+    <text x="138" y="688" fill="#D2A81A">R</text>
+    <text x="134" y="684" fill="url(#gold)">R</text>
+  </g>
+
+  <!-- L : cream, extruded, being 'drawn' by the marker -->
+  <g filter="url(#soft)" font-family="'Arial Black','Arial',sans-serif" font-weight="900" font-size="470">
+    <text x="520" y="700" fill="#9C9C8C">L</text>
+    <text x="516" y="696" fill="#B5B5A3">L</text>
+    <text x="512" y="692" fill="#CFCFBB">L</text>
+    <text x="508" y="688" fill="#E0E0CC">L</text>
+    <text x="504" y="684" fill="url(#cream)">L</text>
+  </g>
+
+  <!-- highlighter marker, drawn pointing down-left, tip near the L stem -->
+  <g transform="translate(608,398) rotate(45)" filter="url(#soft)">
+    <!-- cap end -->
+    <rect x="-62" y="-330" width="124" height="70" rx="22" fill="#3A3A3A" stroke="#2A2A2A" stroke-width="8"/>
+    <!-- body -->
+    <rect x="-58" y="-285" width="116" height="290" rx="16" fill="url(#markerBody)" stroke="#3A3A3A" stroke-width="10"/>
+    <!-- grip window -->
+    <rect x="-26" y="-240" width="52" height="150" rx="26" fill="#D8D8D8" stroke="#3A3A3A" stroke-width="9"/>
+    <!-- ferrule -->
+    <rect x="-46" y="5" width="92" height="34" rx="8" fill="#CFCFCF" stroke="#3A3A3A" stroke-width="9"/>
+    <!-- chisel tip -->
+    <path d="M -34 39 L 34 39 L 16 108 L -10 118 Z" fill="#E4E4E4" stroke="#3A3A3A" stroke-width="9" stroke-linejoin="round"/>
+    <!-- tip nib -->
+    <path d="M -10 118 L 16 108 L 6 132 Z" fill="#F2CC2E" stroke="#3A3A3A" stroke-width="7" stroke-linejoin="round"/>
+  </g>
+</svg>

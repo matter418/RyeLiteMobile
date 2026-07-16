@@ -1,0 +1,85 @@
+<!-- Copyright (C) 2025  HighLite / RyeLite contributors
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version. -->
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, viewport-fit=cover, user-scalable=no"
+        />
+        <!-- Import map for Plugin-Hub plugins loaded at runtime later; the
+             bundled loader resolves @ryelite/core at build time and never
+             touches this. Kept in parity with the desktop client.html. -->
+        <script type="importmap">
+            {
+                "imports": {
+                    "@highlite/plugin-api": "https://cdn.jsdelivr.net/npm/@ryelite/core@0.1.2/dist/index.min.js",
+                    "@highlite/core": "https://cdn.jsdelivr.net/npm/@ryelite/core@0.1.2/dist/index.min.js",
+                    "@ryelite/core": "https://cdn.jsdelivr.net/npm/@ryelite/core@0.1.2/dist/index.min.js",
+                    "@babylonjs/": "https://cdn.jsdelivr.net/npm/@babylonjs/"
+                }
+            }
+        </script>
+        <title>RyeLite</title>
+        <style>
+            html,
+            body {
+                margin: 0;
+                padding: 0;
+                background: black;
+                height: 100%;
+                overflow: hidden;
+            }
+            #ryelite-boot {
+                position: fixed;
+                inset: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                color: #f9f449;
+                font-family: system-ui, sans-serif;
+                background: black;
+                z-index: 9999;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="ryelite-boot">Loading RyeLite…</div>
+        <script>
+            // The loader dispatches a synthetic DOMContentLoaded when the game
+            // is fully injected — that's the moment to drop the boot screen.
+            document.addEventListener('DOMContentLoaded', () => {
+                document.getElementById('ryelite-boot')?.remove();
+            });
+
+            // Surface loader crashes on the boot screen itself — chrome://inspect
+            // is unreliable and adb isn't always at hand. An uncaught error in
+            // the loader module means the boot screen never clears, so paint the
+            // reason onto it.
+            function ryeliteBootError(prefix, err) {
+                const boot = document.getElementById('ryelite-boot');
+                if (!boot) return; // game already up; not a boot failure
+                const line = document.createElement('div');
+                line.style.cssText =
+                    'position:fixed;left:8px;right:8px;bottom:8px;color:#ef4444;' +
+                    'font:12px monospace;white-space:pre-wrap;word-break:break-all;';
+                line.textContent =
+                    prefix + ': ' + (err && (err.stack || err.message || err));
+                boot.appendChild(line);
+            }
+            window.addEventListener('error', e =>
+                ryeliteBootError('Error', e.error || e.message)
+            );
+            window.addEventListener('unhandledrejection', e =>
+                ryeliteBootError('Unhandled rejection', e.reason)
+            );
+        </script>
+        <script type="module" src="/src/client.ts"></script>
+    </body>
+</html>

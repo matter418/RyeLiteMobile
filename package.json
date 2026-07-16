@@ -1,0 +1,25 @@
+{
+    "name": "ryelite-mobile",
+    "version": "1.0.0",
+    "description": "RyeLite Mobile — the RyeLite High Spell client for Android, with multi-account tabs, touch controls, and the full plugin runtime",
+    "private": true,
+    "license": "GPL-3.0-only",
+    "type": "module",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "sync": "vite build && cap sync android",
+        "android": "vite build && cap sync android && cap open android"
+    },
+    "dependencies": {
+        "@capacitor/android": "^7.0.0",
+        "@capacitor/core": "^7.0.0",
+        "@iconify/iconify": "^3.1.1",
+        "@ryelite/core": "^0.1.2"
+    },
+    "devDependencies": {
+        "@capacitor/cli": "^7.0.0",
+        "typescript": "^5.9.2",
+        "vite": "^7.1.1"
+    }
+}

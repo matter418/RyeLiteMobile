@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">RyeLite Mobile</string>
+    <string name="title_activity_main">RyeLite Mobile</string>
+    <string name="package_name">com.matter418.ryelitemobile</string>
+    <string name="custom_url_scheme">com.matter418.ryelitemobile</string>
+</resources>

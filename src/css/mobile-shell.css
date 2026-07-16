@@ -1,0 +1,284 @@
+/*
+Copyright (C) 2025  HighLite / RyeLite contributors
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+*/
+
+/* Theme variables the core's inline styles reference (var(--theme-*)).
+   Copied from RyeliteDesktop/static/css/index.css :root block. */
+:root {
+    --theme-background: #1a1a1a;
+    --theme-background-soft: #222222;
+    --theme-background-mute: #2a2a2a;
+    --theme-background-light: #333333;
+    --theme-accent: #f9f449;
+    --theme-accent-dark: #e6e03a;
+    --theme-accent-light: #fbf65c;
+    --theme-accent-muted: rgba(249, 244, 73, 0.8);
+    --theme-accent-transparent-10: rgba(249, 244, 73, 0.1);
+    --theme-accent-transparent-20: rgba(249, 244, 73, 0.2);
+    --theme-accent-transparent-30: rgba(249, 244, 73, 0.3);
+    --theme-accent-transparent-40: rgba(249, 244, 73, 0.4);
+    --theme-accent-transparent-60: rgba(249, 244, 73, 0.6);
+    --theme-text-primary: #ffffff;
+    --theme-text-secondary: rgba(255, 255, 255, 0.8);
+    --theme-text-muted: rgba(255, 255, 255, 0.6);
+    --theme-text-dark: #1a1a1a;
+    --theme-border: rgba(255, 255, 255, 0.1);
+    --theme-border-light: rgba(255, 255, 255, 0.05);
+    --theme-divider: rgba(255, 255, 255, 0.15);
+    --theme-success: #10b981;
+    --theme-success-dark: #059669;
+    --theme-success-light: #34d399;
+    --theme-success-transparent-30: rgba(16, 185, 129, 0.3);
+    --theme-danger: #ef4444;
+    --theme-danger-dark: #dc2626;
+    --theme-danger-light: #f87171;
+    --theme-danger-transparent-30: rgba(239, 68, 68, 0.3);
+    --vt-c-white: #ffffff;
+    --vt-c-white-soft: #f8f8f8;
+    --vt-c-white-mute: #f2f2f2;
+    --vt-c-black: var(--theme-background);
+    --vt-c-black-soft: var(--theme-background-soft);
+    --vt-c-black-mute: var(--theme-background-mute);
+    --vt-c-indigo: var(--theme-accent);
+    --vt-c-divider-light-1: var(--theme-divider);
+    --vt-c-divider-light-2: var(--theme-border);
+    --vt-c-divider-dark-1: var(--theme-divider);
+    --vt-c-divider-dark-2: var(--theme-border);
+    --vt-c-text-light-1: var(--theme-text-primary);
+    --vt-c-text-light-2: var(--theme-text-secondary);
+    --vt-c-text-dark-1: var(--theme-text-primary);
+    --vt-c-text-dark-2: var(--theme-text-secondary);
+    /* Desktop has a 28px custom Electron titlebar; mobile has none. Plugins
+       size overlays with calc(100% - var(--titlebar-height)) — if the var is
+       undefined the calc() is invalid and the height collapses to 0
+       (this made all Nameplates invisible). */
+    --titlebar-height: 0px;
+    --color-background: var(--theme-background);
+    --color-background-soft: var(--theme-background-soft);
+    --color-background-mute: var(--theme-background-mute);
+    --color-border: var(--theme-border);
+    --color-border-hover: var(--theme-divider);
+    --color-heading: var(--theme-text-primary);
+    --color-text: var(--theme-text-primary);
+    --section-gap: 160px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Fullscreen overlay                                                  */
+/* ------------------------------------------------------------------ */
+
+#ryelite-mobile-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 2147483300;
+    background: var(--theme-background);
+    display: none;
+    flex-direction: column;
+    color: var(--theme-text-primary);
+    font-family: Inter, system-ui, sans-serif;
+    /* keep clear of notches/curved corners in landscape */
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+}
+
+#ryelite-mobile-overlay.rlm-open {
+    display: flex;
+}
+
+.rlm-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 8px;
+    background: var(--theme-background-soft);
+    border-bottom: 1px solid var(--theme-border);
+    flex: none;
+}
+
+.rlm-close {
+    width: 48px;
+    height: 48px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    color: var(--theme-text-secondary);
+    background: var(--theme-background-mute);
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+/* ------------------------------------------------------------------ */
+/* Core's panel bar, re-housed as a horizontal tab strip               */
+/* ------------------------------------------------------------------ */
+
+#ryelite-mobile-overlay .highlite_bar {
+    display: flex;
+    flex-direction: row;
+    gap: 6px;
+    flex: 1;
+    min-width: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    scrollbar-width: none;
+}
+
+#ryelite-mobile-overlay .highlite_bar::-webkit-scrollbar {
+    display: none;
+}
+
+#ryelite-mobile-overlay .highlite_bar .highlite_bar_item {
+    min-width: 48px;
+    height: 48px;
+    flex: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    border-radius: 10px;
+    background: var(--theme-background-mute);
+    border: 1px solid var(--theme-border-light);
+    cursor: pointer;
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+#ryelite-mobile-overlay .highlite_bar .highlite_bar_item.rlm-active {
+    border-color: var(--theme-accent);
+    background: var(--theme-accent-transparent-10);
+}
+
+/* ------------------------------------------------------------------ */
+/* Core's selected-content drawer, re-housed as the overlay body       */
+/* ------------------------------------------------------------------ */
+
+#ryelite-mobile-overlay .highlite_bar_selected_content {
+    display: none;
+    flex: 1;
+    min-height: 0;
+    flex-direction: column;
+    position: relative;
+}
+
+#ryelite-mobile-overlay .highlite_bar_selected_content.activated {
+    display: flex;
+}
+
+#ryelite-mobile-overlay .content_title {
+    flex: none;
+    padding: 8px 12px 4px;
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--theme-accent);
+}
+
+#ryelite-mobile-overlay #selectedContentDiv {
+    flex: 1;
+    min-height: 0;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Panel pages are created by panelManager with inline
+   position:absolute;height:100% but no width — stretch them.
+   border-box is load-bearing: pages set their own inline padding, and with
+   content-box sizing width:100% + padding overflows the screen — the page
+   has overflow-x:hidden, so the right edge of every row gets clipped. */
+#ryelite-mobile-overlay #selectedContentDiv > div {
+    width: 100%;
+    box-sizing: border-box;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Core's settings panel (the plugin list AND each plugin's config page)
+   nests its scroll area (#highlite-settings-content-row-holder, overflow-y
+   auto) as a lone content-width flex child of the panel page — on a
+   landscape phone that leaves most of the screen dead to touch-scrolling.
+   Stretch it to fill the page so a swipe ANYWHERE scrolls the settings,
+   and cap the rows themselves so controls don't drift a screen-width away
+   from their labels (same rationale as the Mobile panel's 520px cap). */
+#ryelite-mobile-overlay #highlite-settings-content-row-holder {
+    flex: 1 1 auto;
+    min-width: 0;
+}
+
+#ryelite-mobile-overlay #highlite-settings-content-row-holder > div {
+    width: 100%;
+    max-width: 640px;
+    box-sizing: border-box;
+}
+
+/* Pre-login the overlay offers only the 📱 Mobile tab: core plugin settings
+   are stored per-username and there's no username at the login screen. */
+#ryelite-mobile-overlay.rlm-login-only .highlite_bar .highlite_bar_item:not(.rlm-mobile-tab) {
+    display: none;
+}
+
+/* "Where to find this in-game" note at the top of the Mobile panel —
+   only relevant (and only shown) in the pre-login overlay mode. */
+.rlm-login-note {
+    display: none;
+}
+
+#ryelite-mobile-overlay.rlm-login-only .rlm-login-note {
+    display: block;
+    max-width: 520px;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: var(--theme-accent-transparent-10);
+    border: 1px solid var(--theme-accent-transparent-30);
+    color: var(--theme-text-secondary);
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+/* Hint shown when no panel is selected */
+.rlm-empty-hint {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--theme-text-muted);
+    font-size: 14px;
+}
+
+/* ------------------------------------------------------------------ */
+/* Touch-size the core's settings/hub widgets (they use inline styles
+   for colors/layout but not sizes, so plain CSS reaches most of it)   */
+/* ------------------------------------------------------------------ */
+
+#ryelite-mobile-overlay input[type='checkbox'] {
+    width: 22px;
+    height: 22px;
+    flex: none;
+    /* WebView draws the check glyph white under the default (light) scheme —
+       unreadable on the yellow accent; dark scheme picks black instead */
+    color-scheme: dark;
+}
+
+#ryelite-mobile-overlay button,
+#ryelite-mobile-overlay select {
+    min-height: 38px;
+    font-size: 15px;
+}
+
+#ryelite-mobile-overlay input[type='text'],
+#ryelite-mobile-overlay input[type='number'],
+#ryelite-mobile-overlay input[type='search'],
+#ryelite-mobile-overlay textarea {
+    min-height: 38px;
+    font-size: 16px; /* 16px stops Android from zooming the field on focus */
+}
+
+#ryelite-mobile-overlay input[type='range'] {
+    height: 32px;
+}
