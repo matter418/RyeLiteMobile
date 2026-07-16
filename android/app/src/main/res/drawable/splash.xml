@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Cold-start splash (AppTheme.NoActionBarLaunch window background): the RL
+     logo centered on the icon's dark background. A layer-list (not a bare
+     bitmap) so the logo keeps its aspect ratio on any screen instead of
+     stretching to fill. -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <color android:color="#1D1D1D" />
+    </item>
+    <item>
+        <bitmap
+            android:gravity="center"
+            android:src="@drawable/splash_logo" />
+    </item>
+</layer-list>
